@@ -30,8 +30,38 @@ class ChessBoard:
             self.board[6][i] = Pawn("Black", (6, i))
 
     def printBoard(self):
-        for row in self.board:
+        print("           A              B             C               D             E              F             G                 H")
+        for i, row in enumerate(self.board):
             rowString = [str(piece) if piece else '-' for piece in row]
-            print(rowString)
+            print(str(8 - i) + "   " + str(rowString))
+
+    
+    def selectPiece(self):
+        print("Select a piece to move (Example: A1): ")
+        positionInput = input()
+
+        column_mapping = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G":6, "H":7}
+        row_mapping = {"1": 7, "2": 6, "3": 5, "4": 4, "5": 3, "6": 2, "7":1, "8":0}
+
+        try:
+            column = column_mapping[positionInput[0].upper()]
+            row = row_mapping[positionInput[1]]
+            return (row, column)
+                        
+        except KeyError:
+            print("The position you have entered in invalid. Please try again.")
+            self.selectPiece()
+
+
+
+
+
+
+        
+        
+
+
+
+
     
 

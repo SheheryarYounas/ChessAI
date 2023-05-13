@@ -32,5 +32,6 @@ class Knight(ChessPiece):
 class Pawn(ChessPiece):
     def move(self):
         pass
+    
 
 
