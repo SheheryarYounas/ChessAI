@@ -1,0 +1,8 @@
+1. The constructor in Board.py initializes the board by first creating a horizontal row of 8 elements with "-" values. Then this is repeated for 8 times to create 8 rows.
+2. The __str__ function gives a name to the object of that class. Useful for when I insert the object into the array index, it will directly provide a name.
+3. I created the ChessBoard class. The constructor initializes the initial state of board without any pieces.
+4. The initialSetup method then places the pieces of chess on the board to start the game.
+5. The ChessPiece is a parent class which contains the color and string representation method. The child classes then inherit these methods along with the empty move methods which
+will be given an implementation later.
+6. These child classes are imported in ChessBoard and placed on the board in the initialSetup method.
+7. Main function creates instance of ChessBoard (object) and calls the initialSetup method. It then prints the board. The board is now set up.
