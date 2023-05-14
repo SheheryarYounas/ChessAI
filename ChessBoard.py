@@ -3,6 +3,7 @@ from ChessPiece import King, Queen, Rook, Bishop, Knight, Pawn
 class ChessBoard:
     def __init__(self):
         self.board = [["-" for _ in range(8)] for _ in range(8)]
+        self.validMoves = []
 
     def initialSetup(self):
         #Placing white pieces
@@ -52,16 +53,59 @@ class ChessBoard:
             column = column_mapping[positionInput[0].upper()]
             row = row_mapping[positionInput[1]]
 
-            if self.checkPositionForPiece((row, column)):
+            if self.checkPositionForPiece((row, column)) and self.board[row][column].color == "White":
                 print("You have selected a " + str(self.board[row][column]))
             
             else:
-                print("There is no piece at that position. Please try again.")
+                print("There is no piece at that position or you have selected the opponent's piece. Please try again.")
                 self.selectPiece()            
                         
         except KeyError: #KeyError will occur if an input outside the mapping is given.
-            print("The position you have entered in invalid. Please try again.")
+            print("The position you have entered is invalid. Please try again.")
             self.selectPiece()
+        
+        self.availableMoves(self.board[row][column])
+
+    def availableMoves(self, piece):
+        self.validMoves = piece.availableMoves()
+        piece.printAvailableMoves()
+        recursion_elimination = 0
+        
+        column_mapping = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G":6, "H":7}
+        row_mapping = {"1": 7, "2": 6, "3": 5, "4": 4, "5": 3, "6": 2, "7":1, "8":0}
+
+        print("Select a position to move to (Example: A1): ")
+        positionInput = input()
+
+        try:
+            row = row_mapping[positionInput[1]]
+            column = column_mapping[positionInput[0].upper()]
+            if (int(row), int(column)) in self.validMoves:
+                self.board[piece.position[0]][piece.position[1]] = "-"
+                self.board[int(row)][int(column)] = piece
+                piece.position = (int(row), int(column))
+                recursion_elimination = 0
+
+                if (isinstance(piece, Pawn)):
+                    piece.hasMoved = True
+
+            else:
+                print("The position you have entered is not a valid move. Please try again.")
+                recursion_elimination = 1
+                self.availableMoves(piece)
+        
+        except KeyError:
+            print("The position you have entered is invalid. Please try again.")
+            self.availableMoves(piece)
+        
+        if recursion_elimination == 0:
+            self.printBoard()
+
+
+
+
+
+        
 
 
 

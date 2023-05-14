@@ -9,3 +9,11 @@ will be given an implementation later.
 8. Implemented selectPiece which asks the user to select the position on the board. It now takes a valid position input, otherwise asks the user to input position again.
 9. Now, need to implement if the position selected by the user is empty or not. If it is empty, then ask the user to select a position again.
 10. Above is implemented. Now, I will implement available moves for Pawn.
+11. Now in pawn class, I implemented availableMoves method. If the pawn is being moved for the first time, it has the option to move two forward. Otherwise, it can only move one forward.
+The valid moves are stored in an array. Each this this function is called, the array is cleared so that the available moves do not repeat. It gives the array to chessboard class.
+12. The chessboard class then asks user for which piece to move. It then calls the availableMoves method of that piece. It then prints the available moves. The index in availableMoves
+is converted to position notation shown to user. Then printed as available moves. The user then selects the position to move the piece to and the position is converted to 
+index notation. The availableMoves in chessboard class then checks if the index notation is included in validMoves and updates the board and also the position variable of piece.
+If it is a pawn, the hasMoved variable is set to true. The board is then printed again at the end.
+13. The recursionelimination variable is used to prevent the board from being printed multiple times in chessboard class. I had to set this as I call the function again recursively
+so without it, it prints as many times as the input gets wrong.
